@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { DB_APIKEY, URL_API } = process.env
+// const { DB_APIKEY, URL_API } = process.env
 const {Videogame, Genre} = require("../db")
 
 
@@ -9,22 +9,29 @@ const getVideogames = async (req, res) => {
 
       try {
         const databaseVideogames = await Videogame.findAll();
-        
-        // const {data} = await axios.get(`${URL_API}?key=${DB_APIKEY}&page_size=100`);
-        const {data} = await axios.get(`https://api.rawg.io/api/games?key=10732d7389cd48fe80aac0e9e3bfa761&page_size=100`);
-        
-        const apiVideogames = data.results.map(videogame => ({ 
+
+        const pagesToFetch = 5;
+        const apiVideogames = [];
+        const URL = "https://api.rawg.io/api/games?key=10732d7389cd48fe80aac0e9e3bfa761"
+
+        for (let page = 1; page <= pagesToFetch; page++) {
+          const {data} = await axios.get(`${URL}&page=${page}`);  
+       
+          const results = data.results.map(videogame => ({ 
           
-          name: videogame.name,
-          id: videogame.id,
-          image: videogame.background_image,
-          // description: videogame.description,
-          // platform: videogame.platforms.map(platform => platform.platform.name),
-          // released: videogame.released,
-          // rating: videogame.rating,
-          genre: videogame.genres.map(genre => genre.name),
-          created: false,
+            name: videogame.name,
+            id: videogame.id,
+            image: videogame.background_image,
+            // description: videogame.description,
+            // platform: videogame.platforms.map(platform => platform.platform.name),
+            // released: videogame.released,
+            rating: videogame.rating,
+            genre: videogame.genres.map(genre => genre.name),
+            created: false,
         }));
+
+          apiVideogames.push(...results);
+        }
 
           const allVideogames = [...databaseVideogames, ...apiVideogames]
 

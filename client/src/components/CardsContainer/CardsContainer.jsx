@@ -2,7 +2,7 @@ import Card from "../Card/Card";
 import { useSelector } from "react-redux";
 
 const CardsContainer = () => {
-    const videogames = useSelector(state => state.allVideogames)
+    const videogames = useSelector(state => state.filterVideogames)
 
     return(
         <div>

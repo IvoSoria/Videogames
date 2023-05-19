@@ -11,9 +11,7 @@ const Detail = () => {
     const dispatch = useDispatch();    
     
     useEffect(()=> {
-        console.log(id);
         dispatch(getIdVideogame(id))
-        console.log(videogame);
     }, [dispatch, id]);
     
     const videogame = useSelector((state) => state.idVideogame)
