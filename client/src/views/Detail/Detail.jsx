@@ -1,37 +1,47 @@
-import { useParams } from "react-router-dom"
-import React, { useEffect } from "react";
-import {useDispatch} from "react-redux"
+import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { getIdVideogame } from "../../redux/actions";
 import { useSelector } from "react-redux";
-
+import LoadingD from "../../components/Loading/LoadingD";
+import "./Detail.css";
 
 const Detail = () => {
-    const {id} = useParams() 
-    
-    const dispatch = useDispatch();    
-    
-    useEffect(()=> {
-        dispatch(getIdVideogame(id))
-    }, [dispatch, id]);
-    
-    const videogame = useSelector((state) => state.idVideogame)
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
 
-    return(
-        <div>
-            <h1>Details of the {videogame.name} video game:</h1>
-            <img src={videogame.image} alt={videogame.name} height={"200px"}/>
-            <h2>Platforms:</h2>
-            <h3>{videogame.platform?.map(plat => plat + " - ")} </h3>
-            <h2>Released:</h2>
-            <h3>{videogame.released} </h3>
-            <h2>Rating:</h2>
-            <h3>{videogame.rating} </h3>
-            <h2>Genres:</h2>
-            <h3>{videogame.genres?.map(gen => gen + " - ")} </h3>
-            <h2>Description:</h2>            
-            <h3>{videogame.description?.replace(/<[^>]+>/g, "")} </h3>
-        </div>
-    )
-}
+  useEffect(() => {
+    dispatch(getIdVideogame(id))
+      .then(()=> {
+        setIsLoading(false)
+      })
+      .catch((error) => {
+        console.error("Error while retrieving the videogames",error);
+        setIsLoading(false);
+      })
+  }, [dispatch, id]);
 
-export default  Detail;
+  const videogame = useSelector((state) => state.idVideogame);
+
+  console.log(videogame.genres);
+
+  return isLoading? <LoadingD /> : (
+    <div className="detail-container">
+      <h1 className="detail-title">Details of the {videogame.name} video game:</h1>
+      <img src={videogame.image} alt={videogame.name} className="detail-image" />
+      <h2 className="detail-heading">Platforms:</h2>
+      <h3 className="detail-text">{videogame.platform?.map((plat) => plat + " - ")}</h3>
+      <h2 className="detail-heading">Released:</h2>
+      <h3 className="detail-text">{videogame.released}</h3>
+      <h2 className="detail-heading">Rating:</h2>
+      <h3 className="detail-text">{videogame.rating}</h3>
+      <h2 className="detail-heading">Genres:</h2>
+      <h3 className="detail-text">{videogame.genres?.map((gen) => gen + " - ")}</h3>      
+      <h2 className="detail-heading">Description:</h2>
+      <h3 className="detail-text">{videogame.description?.replace(/<[^>]+>/g, "")}</h3>
+    </div>
+  );
+};
+
+export default Detail;

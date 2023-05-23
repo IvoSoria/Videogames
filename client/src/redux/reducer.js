@@ -1,4 +1,4 @@
-import { GET_VIDEOGAMES, GET_ID_VIDEOGAME, GET_ALL_GENRES, FILTER_BY_CREATED, FILTER_BY_GENRE, ORDER_AZ, ORDER_RATING } from "./actions.tips";
+import { GET_VIDEOGAMES, GET_ID_VIDEOGAME, GET_ALL_GENRES, FILTER_BY_CREATED, FILTER_BY_GENRE, ORDER_AZ, ORDER_RATING} from "./actions.tips";
 
 const initialState = {
     allVideogames: [],
@@ -17,10 +17,14 @@ const reducer = (state = initialState, action) => {
             return { ...state, idVideogame: action.payload};
 
         case GET_ALL_GENRES:
-            return { ...state, allGenres: action.payload};
+            return { ...state, allGenres: action.payload}; 
 
         case FILTER_BY_GENRE:
-            const filterVideogames = state.allVideogames.filter(vg => vg.genre.includes(action.payload))
+            const filterVideogames = state.allVideogames.filter(vg => vg.genres.includes(action.payload))
+            if (filterVideogames.length === 0 && action.payload !== "Allgenres") {
+                alert("No video games found for the selected genre.");
+                return { ...state, ...state.allVideogames};          
+              }
             return { ...state,
                 filterVideogames: action.payload === "Allgenres"
                 ? [...state.allVideogames]

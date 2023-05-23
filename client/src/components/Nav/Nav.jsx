@@ -1,23 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import SearchBar from "./SearchBar";
+import "./Nav.css";
 
 const Nav = () => {
-
-    return (
-        <nav>
-
-            <button>
-                <Link to="/home"> HOME </Link>
-            </button>
-            <button>
-                <Link to="/form"> FORM </Link>
-            </button>
-
-        </nav>
-    )
-}
+  return (
+    <nav className="nav-container">
+      <button className="nav-button">
+        <Link to="/home">HOME</Link>
+      </button>
+      <button className="nav-button">
+        <Link to="/form">FORM</Link>
+      </button>
+    </nav>
+  );
+};
 
 export default Nav;
+
 
 

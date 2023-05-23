@@ -1,0 +1,99 @@
+.form-container {
+    background-image: url("form.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #ffffff;
+   
+  }
+  
+  .form-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .form-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .form-input[type="text"],
+  .form-input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #cccccc;
+    margin-bottom: 10px;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.5); /* Ajusta la transparencia según sea necesario */
+  }
+  
+  .form-error {
+    font-size: 14px;
+    color: red;
+    margin-bottom: 10px;
+  }
+  
+  .form-divider {
+    border: none;
+    height: 1px;
+    background-color: #ffffff;
+    margin-bottom: 20px;
+  }
+  
+  .form-genres {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .form-genres-options {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .form-genres-options label {
+    flex-basis: 25%;
+    margin-bottom: 10px;
+  }
+  
+
+  
+  .form-checkbox-label {
+    display: block;
+    width: 25%;
+    float: left;
+    margin-bottom: 10px;
+    color: #ffffff;
+  }
+  
+  .form-checkbox {
+    margin-right: 5px;
+  }
+  
+  .form-platforms {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display:flex
+  }
+  
+  .form-button {
+    background-color: #4caf50;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .form-button:hover {
+    background-color: #45a049;
+  }
+  
+  

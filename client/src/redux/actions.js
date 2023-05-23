@@ -1,4 +1,4 @@
-import { GET_VIDEOGAMES, GET_ID_VIDEOGAME, GET_ALL_GENRES, FILTER_BY_GENRE, FILTER_BY_CREATED,ORDER_AZ, ORDER_RATING } from "./actions.tips";
+import { GET_VIDEOGAMES, GET_ID_VIDEOGAME, GET_ALL_GENRES, FILTER_BY_GENRE, FILTER_BY_CREATED,ORDER_AZ, ORDER_RATING, POST_VIDEOGAMES } from "./actions.tips";
 import axios from "axios";
 // const { URL_BACK } = process.env 
 
@@ -32,6 +32,15 @@ export const getAllGenres = () => {
         const {data} = await axios.get(`http://localhost:3001/genres`);        
         const genres = data;        
         dispatch({ type: GET_ALL_GENRES, payload: genres })
+    }
+}
+
+export const postVideogame = (vgData) => {
+    return async function (dispatch) {
+
+        const {data} = await axios.post(`http://localhost:3001/videogames`,vgData);
+        const postVg = data; 
+        dispatch({ type: POST_VIDEOGAMES, payload: postVg })
     }
 }
 
