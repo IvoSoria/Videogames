@@ -1,43 +1,50 @@
 .detail-container {
-    background-color: rgba(245, 245, 245, 0.7);
-    background-image: url("./detail.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    color: #ffffff;
-  }
-  
-  .detail-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .detail-image {
-    width: 100%;
-    height: auto;
-    max-width: 300px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-  
-  .detail-heading {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .detail-text {
-    font-size: 14px;
-    margin-bottom: 10px;
-    transition: color 0.3s ease;
-  }
-    
-  .detail-description {
-    font-size: 14px;
-    line-height: 1.5;
-  }
-  
+  background-color: rgba(245, 245, 245, 0.7);
+  background-image: url("./detail.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #ffffff;
+}
+
+.detail-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.game-name {
+  font-weight: bold;
+  font-size: 1.2em;
+  text-decoration: underline;
+  color:rgb(255, 255, 255);
+  text-shadow: 3px 2px 4px rgba(90, 98, 255);
+}
+
+.detail-image {
+  width: 100%;
+  height: auto;
+  max-width: 400px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.detail-heading {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.detail-text {
+  font-size: 14px;
+  margin-bottom: 10px;
+  transition: color 0.3s ease;
+}
+
+.detail-description {
+  font-size: 14px;
+  line-height: 1.5;
+}

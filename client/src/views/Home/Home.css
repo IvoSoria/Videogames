@@ -1,3 +1,4 @@
 .container {
-    background-image: url("./fondo.png");
-  }
+  background-image: url("./fondo.png");
+  min-height: 100vh;
+}

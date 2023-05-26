@@ -1,9 +1,9 @@
-const routerVideogames = require ("express").Router();
+const routerVideogames = require("express").Router();
 
 const {
-    getVideogames,
-    getIdVideogame,
-    postVideogame} = require("../controllers/getVideogame");
+  getVideogames,
+  getIdVideogame,
+  postVideogame } = require("../controllers/getVideogame");
 
 
 routerVideogames.get("/", getVideogames);

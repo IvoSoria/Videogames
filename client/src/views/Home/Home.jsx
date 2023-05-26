@@ -15,17 +15,11 @@ const Home = () => {
   const videogamesPerPage = 15;
 
   useEffect(() => {
-    dispatch(getVideogames())    
-      .then(()=> {
+    dispatch(getVideogames())
+      .then(() => {
         setIsLoading(false)
-      }) 
-      .catch((error) => {
-        console.error("Error while retrieving the videogames",error);
-        setIsLoading(false);
       })
   }, [dispatch]);
-
-console.log(getVideogames);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -36,7 +30,7 @@ console.log(getVideogames);
   const currentVideogames = videogames.slice(indexOfFirstVideogame, indexOfLastVideogame);
 
 
-  return isLoading? <LoadingH /> : (
+  return isLoading ? <LoadingH /> : (
     <div className="container">
       <SearchBar />
       <Paginated

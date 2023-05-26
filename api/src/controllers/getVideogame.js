@@ -1,23 +1,27 @@
 const axios = require('axios');
-// const { DB_APIKEY, URL_API } = process.env
+const { DB_APIKEY, URL_API } = process.env
 const { Videogame, Genre } = require("../db")
 
 
 const getVideogames = async (req, res) => {
-
   const { name } = req.query;
 
   try {
-    const databaseVideogames = await Videogame.findAll({ include: [{ model: Genre, attributes: ['name'], through: { attributes: [] } }] })
+    const databaseVideogames = await Videogame.findAll(
+      { include: [{ model: Genre, attributes: ['name'], through: { attributes: [] } }] })
 
     const modifiedVideogames = databaseVideogames.map(vg => {
       const genres = vg.genres.map(gen => gen.name);
-      return { genres: genres, id: vg.id, name: vg.name, platform: vg.platform, released: vg.released, rating: vg.rating, image: vg.image, created: vg.created, description: vg.description };
+      return {
+        genres: genres, id: vg.id, name: vg.name, platform: vg.platform, released: vg.released,
+        rating: vg.rating, image: vg.image, created: vg.created, description: vg.description
+      };
     });
 
     const pagesToFetch = 5;
     const apiVideogames = [];
     const URL = "https://api.rawg.io/api/games?key=10732d7389cd48fe80aac0e9e3bfa761"
+    // const URL = `${URL_API}?key=${URL_API} `
 
     for (let page = 1; page <= pagesToFetch; page++) {
       const { data } = await axios.get(`${URL}&page=${page}`);
@@ -41,7 +45,8 @@ const getVideogames = async (req, res) => {
     const allVideogames = [...modifiedVideogames, ...apiVideogames]
 
     if (name) {
-      const filteredVideogame = allVideogames.filter(game => game.name.toLowerCase().includes(name.toLowerCase()))
+      const filteredVideogame = allVideogames.filter(
+        game => game.name.toLowerCase().includes(name.toLowerCase()))
 
       return res.status(200).json(filteredVideogame.slice(0, 15));
     }
@@ -55,12 +60,6 @@ const getVideogames = async (req, res) => {
 }
 
 
-// 📍 GET | /videogames/:idVideogame
-// Esta ruta obtiene el detalle de un videojuego específico. Es decir que devuelve un objeto con la información pedida en el detalle de un videojuego.
-// El videojuego es recibido por parámetro (ID).
-// Tiene que incluir los datos del género del videojuego al que está asociado.
-// Debe funcionar tanto para los videojuegos de la API como para los de la base de datos.
-
 const getIdVideogame = async (req, res) => {
   const { id } = req.params;
   const source = isNaN(id) ? "db" : "api";
@@ -68,7 +67,8 @@ const getIdVideogame = async (req, res) => {
   try {
     if (source === "api") {
 
-      const { data } = await axios.get(`https://api.rawg.io/api/games/${id}?key=10732d7389cd48fe80aac0e9e3bfa761`)
+      const { data } = await axios.get(
+        `https://api.rawg.io/api/games/${id}?key=10732d7389cd48fe80aac0e9e3bfa761`)
       // const {data} = await axios.get(`${URL_API}/${id}?key=${DB_APIKEY}`) 
       if (!data.id) throw new Error(`ID not found`)
 
@@ -86,7 +86,9 @@ const getIdVideogame = async (req, res) => {
       return res.status(200).json(videogame);
     }
     else {
-      const bdVideogame = await Videogame.findByPk(id, { include: [{ model: Genre, attributes: ['name'], through: { attributes: [] } }] })
+      const bdVideogame = await Videogame.findByPk(id, {
+        include: [{ model: Genre, attributes: ['name'], through: { attributes: [] } }]
+      })
 
       if (!bdVideogame) throw new Error(`ID not found`)
 
@@ -98,12 +100,10 @@ const getIdVideogame = async (req, res) => {
         platform: bdVideogame.platform,
         released: bdVideogame.released,
         rating: bdVideogame.rating,
-        genres: bdVideogame.genres.map(genre => genre.name),        
+        genres: bdVideogame.genres.map(genre => genre.name),
       };
-
       return res.status(200).json(vgBd);
     }
-
   } catch (error) {
     return error.message.includes('ID')
       ? res.status(404).send(error.message)
@@ -111,16 +111,12 @@ const getIdVideogame = async (req, res) => {
   }
 };
 
-// 📍 POST | /videogames
-// Esta ruta recibirá todos los datos necesarios para crear un videojuego y relacionarlo con sus géneros solicitados.
-// Toda la información debe ser recibida por body.
-// Debe crear un videojuego en la base de datos, y este debe estar relacionado con sus géneros indicados (al menos uno).
 
 const postVideogame = async (req, res) => {
 
   try {
     const { name, description, platforms, image, released, rating, genres } = req.body;
-    console.log(req.body);
+
     const createdVideogame = await Videogame.create({
       name: name,
       description: description,
@@ -132,14 +128,11 @@ const postVideogame = async (req, res) => {
     });
 
     if (genres.length > 0) {
-      console.log("hola");
       await createdVideogame.addGenres(genres);
     }
-    console.log("chau");
     res.status(200).json(createdVideogame);
-
-
-  } catch (error) {
+  }
+  catch (error) {
     res.status(400).json({ error: error.message });
   }
 };

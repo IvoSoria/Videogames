@@ -1,6 +1,6 @@
 .landing-container {
-    background-image: url("./img1.jpg");
-    background-size: cover;
+  background-image: url("./img1.jpg");
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   height: 100vh;

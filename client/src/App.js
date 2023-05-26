@@ -1,9 +1,5 @@
 import './App.css';
-// import { useEffect, useState } from "react";
-// import axios from 'axios';
 import { Routes, Route, useLocation} from "react-router-dom";
-// import {useNavigate} from 'useNavigate'
-
 import {Landing, Home, Detail, Form  } from './views/index';
 import Nav from './components/Nav/Nav'
 
