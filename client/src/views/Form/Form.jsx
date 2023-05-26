@@ -72,8 +72,8 @@ const Form = () => {
   }
 
   let validateDescription = () => {
-    if (vgData.description.length < 10 || vgData.description.length > 100) {
-      setErrors({ ...errors, description: "Minimum 10 characters and maximum 100 characters." })
+    if (vgData.description.length < 10 || vgData.description.length > 300) {
+      setErrors({ ...errors, description: "Minimum 10 characters and maximum 300 characters." })
     } else { setErrors({ ...errors, description: "" }) }
   }
 

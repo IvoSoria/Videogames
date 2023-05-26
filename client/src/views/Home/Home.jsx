@@ -32,7 +32,7 @@ const Home = () => {
 
   return isLoading ? <LoadingH /> : (
     <div className="container">
-      <SearchBar />
+      <SearchBar setCurrentPage={setCurrentPage}/>
       <Paginated
         currentPage={currentPage}
         totalPages={Math.ceil(videogames.length / videogamesPerPage)}

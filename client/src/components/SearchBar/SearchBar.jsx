@@ -4,7 +4,7 @@ import { getVideogames, getAllGenres, filterByGenre, filterByCreated, orderAz, o
 import { useSelector } from "react-redux";
 import "./SearchBar.css";
 
-const SearchBar = () => {
+const SearchBar = ({setCurrentPage}) => {
   const [searchTerm, setSearchTerm] = useState("");
   const dispatch = useDispatch();
 
@@ -15,7 +15,11 @@ const SearchBar = () => {
   const genres = useSelector((state) => state.allGenres);
 
   const handleSearch = () => {
-    dispatch(getVideogames(searchTerm));
+    dispatch(getVideogames(searchTerm))
+    .then(() => {
+      setCurrentPage(1);
+    })
+    
   };
 
   const handleReset = () => {
@@ -29,10 +33,12 @@ const SearchBar = () => {
 
   const handleFilterGenre = (event) => {
     dispatch(filterByGenre(event.target.value));
+    setCurrentPage(1);
   }
 
   const handleFilterCreated = (event) => {
     dispatch(filterByCreated(event.target.value));
+    setCurrentPage(1);
   }
 
   const handleOrderAz = (event) => {
@@ -45,6 +51,15 @@ const SearchBar = () => {
 
   return (
     <div className="search-bar-container">
+
+      <input
+        placeholder="Search by name"
+        type="text"
+        value={searchTerm}
+        onChange={(event) => setSearchTerm(event.target.value)}
+        className="search-bar-input"
+      />
+      <button onClick={handleSearch} className="search-bar-button">Search</button>
 
       <select onChange={handleOrderAz} id="Alfabetic" className="search-bar-select">
         <option value="none" className="search-bar-option">----Order A-Z----</option>
@@ -72,15 +87,7 @@ const SearchBar = () => {
           <option key={gen.id} value={gen.name} className="search-bar-option">{gen.name}</option>
         ))}
       </select>
-
-      <input
-        placeholder="Search by name"
-        type="text"
-        value={searchTerm}
-        onChange={(event) => setSearchTerm(event.target.value)}
-        className="search-bar-input"
-      />
-      <button onClick={handleSearch} className="search-bar-button">Search</button>
+      
       <button onClick={handleReset} className="search-bar-button">Reset</button>
 
     </div>

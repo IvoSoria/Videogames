@@ -15,10 +15,6 @@ const Detail = () => {
       .then(() => {
         setIsLoading(false)
       })
-      .catch((error) => {
-        console.error("Error while retrieving the videogames", error);
-        setIsLoading(false);
-      })
   }, [dispatch, id]);
 
   const videogame = useSelector((state) => state.idVideogame);

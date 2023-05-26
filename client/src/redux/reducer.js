@@ -20,10 +20,10 @@ const reducer = (state = initialState, action) => {
       return { ...state, allGenres: action.payload };
 
     case FILTER_BY_GENRE:
-      const filterVideogames = state.allVideogames.filter(vg => vg.genres.includes(action.payload))
+      const filterVideogames = state.filterVideogames.filter(vg => vg.genres.includes(action.payload))
       if (filterVideogames.length === 0 && action.payload !== "Allgenres") {
         alert("No video games found for the selected genre.");
-        return { ...state, ...state.allVideogames };
+        return { ...state, ...state.filterVideogames };
       }
       return {
         ...state,
@@ -33,11 +33,11 @@ const reducer = (state = initialState, action) => {
       }
 
     case FILTER_BY_CREATED:
-      const filterByCreated = state.allVideogames.filter(vg => vg.created === (action.payload === "true"))
+      const filterByCreated = state.filterVideogames.filter(vg => vg.created === (action.payload === "true"))
       return {
         ...state,
         filterVideogames: action.payload === "Allcreated"
-          ? [...state.allVideogames]
+          ? [...state.filterVideogames]
           : filterByCreated
       }
 
